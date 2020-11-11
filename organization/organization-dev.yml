@@ -1,0 +1,36 @@
+server:
+  port: 5000
+
+logging:
+  level:
+    root: INFO
+    org.springframework.web: INFO
+    org.springframework.security: INFO
+    org.springframework.security.oauth2: INFO
+    org.springframework.cloud.gateway: INFO
+
+spring:
+  application:
+    name: gateway
+  cloud:
+    loadbalancer:
+      ribbon:
+        enabled: false
+    consul:
+      host: 127.0.0.1
+      discovery:
+        prefer-ip-address: true
+        instanceId: ${spring.application.name}-service:${spring.application.instance_id:${random.value}}
+  security:
+    oauth2:
+      client:
+        registration:
+          gateway-service:
+            provider: keycloak
+            client-id: gateway-service
+            client-secret: ef70b64e-8232-4c3e-bce6-706560d0fc02
+            authorization-grant-type: authorization_code
+            scope: openid,profile,email
+        provider:
+          keycloak:
+            issuer-uri: http://localhost:8080/auth/realms/db-space-project
