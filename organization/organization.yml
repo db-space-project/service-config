@@ -11,6 +11,9 @@ spring:
           jwt:
             jwk-set-uri: http://localhost:8080/auth/realms/db-space-project/protocol/openid-connect/certs
   cloud:
+    loadbalancer:
+      ribbon:
+        enabled: false
     consul:
       host: 127.0.0.1
       discovery:
