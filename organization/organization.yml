@@ -1,0 +1,18 @@
+server:
+  port: 8082
+
+spring:
+  application:
+    name: organization
+  security:
+    oauth2:
+      oauth2:
+        resourceserver:
+          jwt:
+            jwk-set-uri: http://localhost:8080/auth/realms/db-space-project/protocol/openid-connect/certs
+  cloud:
+    consul:
+      host: 127.0.0.1
+      discovery:
+        prefer-ip-address: true
+        instanceId: ${spring.application.name}-service:${spring.application.instance_id:${random.value}}
