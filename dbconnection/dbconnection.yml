@@ -1,1 +1,29 @@
-tracer.property: "I AM THE DEFAULT"
+server:
+  port: 8090
+
+spring:
+  application:
+    name: dbconnection
+  security:
+    oauth2:
+      client:
+        provider:
+          keycloak:
+            issuer-uri: http://localhost:8080/auth/realms/db-space-project
+        registration:
+          keycloak:
+            client-id: db-space-project-security
+            client-secret: af0e3157-b9e8-4443-b743-2b39e674628c
+  cloud:
+    loadbalancer:
+      ribbon:
+        enabled: false
+    consul:
+      host: 127.0.0.1
+      discovery:
+        prefer-ip-address: true
+        instanceId: ${spring.application.name}-service:${spring.application.instance_id:${random.value}}
+
+logging:
+  level:
+    reactor.netty.http.client.HttpClient: DEBUG
